@@ -4,11 +4,11 @@
     // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "command": "bash run.sh & exit",
-            "name": "Run RandOS",
-            "request": "launch",
-            "type": "node-terminal"
-        }
+    {
+        "command": "bash run.sh && exit",
+        "name": "Run RandOS",
+        "request": "launch",
+        "type": "node-terminal"
+    }
     ]
 }

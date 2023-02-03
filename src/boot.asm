@@ -6,7 +6,7 @@ org 0x7C00
 
 ;include 'multiboot.inc'
 include 'print16.inc'
-;include 'sound.inc'
+include 'sound.inc'
 
 
 ;############### CODE ###############
@@ -22,13 +22,14 @@ mov sp, 0x1000
 ; print
 print_init
 
+print 'Hi!', 'How are you?'
 printb MSG1, nl, MSG2, nl
-;print 'Hi!', 'How are you?'
 
 ; sound
-mov ax, 99 
-;call speaker_tone
-
+call speaker_tone
+hlt
+call speaker_off
+print 'I added sound!'
 ; halt
 jmp _halt
 

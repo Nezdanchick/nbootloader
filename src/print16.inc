@@ -19,18 +19,21 @@ macro printb [line]
 macro print [line]
 {
   local msg
-  msg db  line, 0
-  printb msg, nl
+  local prnt
+  jmp prnt
+  msg db line, 10, 13, 0
+  prnt:
+  printb msg
 }
 
 macro print_init
 {
-  local clear
+  local end_init
   ; set videomode
-  mov ax, 0x3
+  mov ax, 3
   int 10h
-  clear db 0, 'OK', 0
-  printb  clear
+  jmp end_init
   ; data
   nl db 10, 13, 0
+  end_init:
 }
