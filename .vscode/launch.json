@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "bash run.sh",
+            "command": "bash run.sh & exit",
             "name": "Run RandOS",
             "request": "launch",
             "type": "node-terminal"
