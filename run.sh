@@ -6,7 +6,7 @@ SCRIPTS=./scripts
 BUILD=build.sh
 RUN=qemu.sh
 
-
+mkdir -p -v $ROOT/bin/
 cd $SCRIPTS
 if bash $BUILD ; then
     bash $RUN # if success
