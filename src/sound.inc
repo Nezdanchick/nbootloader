@@ -1,3 +1,12 @@
+macro beep [args]
+{
+  mov ax, args
+  call speaker_tone
+  hlt
+  hlt
+  call speaker_off
+}
+
 jmp next
 speaker_tone:
     pusha

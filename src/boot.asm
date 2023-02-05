@@ -26,9 +26,7 @@ print 'Hi!', 'How are you?'
 printb MSG1, nl, MSG2, nl
 
 ; sound
-call speaker_tone
-hlt
-call speaker_off
+beep 15000, 20000, 10000, 7000, 5000, 20000, 15000
 print 'I added sound!'
 ; halt
 jmp _halt
