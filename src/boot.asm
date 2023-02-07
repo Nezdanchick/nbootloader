@@ -1,10 +1,10 @@
 ;############### SETUP ###############
 
-use16
+use32
 format binary
 org 0x7C00
 
-;include 'multiboot.inc'
+include 'gdt.inc'
 include 'print16.inc'
 include 'sound.inc'
 
@@ -17,7 +17,6 @@ xor ax, ax
 mov es, ax
 mov ds, ax
 mov ss, ax
-mov sp, 0x1000
 
 ; print
 print_init
@@ -38,7 +37,7 @@ _halt:
 
 ;############### DATA ###############
 
-MSG1 db 'I love you ', 0x3, 0x3, 0x3, 0
+MSG1 db 'i''m nice', 0
 MSG2 db '//^w^//', 0
 
 ;############### BOOT ###############

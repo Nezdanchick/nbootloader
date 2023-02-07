@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=../bin
-BOOT=$BIN/boot.bin
+BOOT=$BIN/$1.bin
 
 MEM=4M # minimum - 1009kb of ram
 

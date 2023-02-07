@@ -8,8 +8,8 @@ RUN=qemu.sh
 
 mkdir -p -v $ROOT/bin/
 cd $SCRIPTS
-if bash $BUILD ; then
-    bash $RUN # if success
+if bash $BUILD $1 ; then
+    bash $RUN $1
 else
-    read -p "Press Enter to continue..." # if fail reads line
+    read -p "Press Enter to continue..."
 fi
