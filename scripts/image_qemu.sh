@@ -6,7 +6,7 @@ BOOT=$BIN/image.img
 MEM=4M # minimum - 1009kb of ram
 
 qemu-system-x86_64 \
--drive format=raw,file=$BOOT \
+-fda $BOOT \
 -audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 \
 -m $MEM \
 -enable-kvm
