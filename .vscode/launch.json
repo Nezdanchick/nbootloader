@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "bash run.sh boot && exit",
+            "command": "bash run.sh && exit",
             "name": "Run bootloader",
             "request": "launch",
             "type": "node-terminal"
         },
         {
-            "command": "bash run.sh kernel && exit",
+            "command": "cd ./scripts/ && bash build.sh kernel && bash image_grub.sh && bash image_qemu.sh && exit",
             "name": "Run kernel",
             "request": "launch",
             "type": "node-terminal"

@@ -1,28 +1,8 @@
-use32
-org 0x100000;this is where we are loaded
-jmp start32
-FLAGS_PAGE_ALIGN = 1 SHL 0
-FLAGS_FLAT = 1 SHL 16
+bits 32
+global _start
 
-MAGIC = 0x1BADB002
-FLAGS =   FLAGS_FLAT or FLAGS_PAGE_ALIGN
+%include "multiboot.inc"
 
-
-align 4
-mheader:
-magic dd MAGIC
-flags dd FLAGS
-checksum dd -(MAGIC+FLAGS)
-
-headeraddr dd mheader
-loadaddr dd 0x100000
-loadend dd dataend
-bssend dd 0;there is no BSS
-jmpaddr dd start32
-
-start32:;the start of the 32 bit code of the kernel where we set up for long mode
-cli
-
-
-incl:
-dataend:
+_Main:  
+    mov dword [0xb8000], 0x2f4b2f4f
+    hlt
