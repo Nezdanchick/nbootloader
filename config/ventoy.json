@@ -1,6 +1,0 @@
-{
-    "control": [
-        { "VTOY_MAX_SEARCH_LEVEL": "1" },
-        { "VTOY_DEFAULT_SEARCH_ROOT": "/ventoy" }
-    ]
-}
