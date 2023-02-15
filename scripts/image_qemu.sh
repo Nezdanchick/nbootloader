@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BIN=../bin
-BOOT=$BIN/image.img
+BOOT=$BIN/image.iso
 
 MEM=4M # minimum - 1009kb of ram
 

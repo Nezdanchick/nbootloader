@@ -8,4 +8,4 @@ mkdir -p $BIN
 cp ../config/grub.cfg $IMG/boot/grub
 
 cp $BIN/kernel.elf $IMG/boot/kernel
-grub-mkrescue --output=$BIN/image.img $IMG
+grub-mkrescue --output=$BIN/image.iso $IMG

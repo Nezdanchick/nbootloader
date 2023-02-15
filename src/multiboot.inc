@@ -1,3 +1,4 @@
+global _start
 section .multiboot
 align 4
 mb_start:
@@ -21,7 +22,7 @@ multiboot_entry:
 
         push   eax                     ;2nd argument is magic number
         push   ebx                     ;1st argument multiboot info pointer
-        call   _Main                   ;Call _Main 
+        call   _main                   ;Call _Main 
         add    esp, 8                  ;Cleanup 8 bytes pushed as arguments
 
         cli
