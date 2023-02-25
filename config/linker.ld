@@ -1,7 +1,8 @@
 ENTRY(_start)
+OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT(kernel.elf)
 SECTIONS
 {
-
 	.text: 0x100000 :
 	{
         /* link the multiboot struct here */

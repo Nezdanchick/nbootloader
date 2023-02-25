@@ -6,13 +6,7 @@
     "configurations": [
         {
             "command": "bash run.sh && exit",
-            "name": "Run bootloader",
-            "request": "launch",
-            "type": "node-terminal"
-        },
-        {
-            "command": "cd ./scripts/ && bash build.sh kernel && bash image_grub.sh && bash image_qemu.sh && exit",
-            "name": "Run kernel",
+            "name": "Run",
             "request": "launch",
             "type": "node-terminal"
         }

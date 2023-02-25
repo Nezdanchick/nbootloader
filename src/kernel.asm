@@ -1,15 +1,16 @@
 bits 32
-global halt
-global print_ok
+extern halt
 extern kernel_main
 
 %include "multiboot.inc"
 
-_main:
-    call kernel_main
-    call halt
-
-print_ok:
-    mov dword [0xb8000], 0x2f4b2f4f
+section .text
+jmp _main
+; FUNC
 halt:
     jmp halt
+
+; MAIN
+_main:
+    call kernel_main
+    ;jmp halt
