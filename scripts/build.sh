@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LD=ld # x86_64-linux-gnu-ld
+
 ROOT=../
 SRC=$ROOT/src
 BIN=$ROOT/bin
@@ -19,5 +21,5 @@ clang -target x86_64-unknown-none -c -nostdlib -nodefaultlibs -ffreestanding \
 -o $BIN/main.o \
 $SRC/kernel.cpp
 
-ld -T $ROOT/config/linker.ld -m elf_x86_64 -o $BIN/kernel.elf \
+$LD -T $ROOT/config/linker.ld -m elf_x86_64 -o $BIN/kernel.elf \
 $BIN/entry.o $BIN/main.o $LIB

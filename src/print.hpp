@@ -29,7 +29,7 @@ void puts(const char * s) {
 }
 
 void clear() {
-    for(int i = 0; i <= (terminalX + terminalY * 80) * 2; i++) {
+    for(int i = 0; i < terminalX + terminalY * 80; i++) {
         putc(' ');
     }
 }

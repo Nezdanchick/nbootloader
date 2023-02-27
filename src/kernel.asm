@@ -5,12 +5,9 @@ extern kernel_main
 %include "multiboot.inc"
 
 section .text
-jmp _main
-; FUNC
-halt:
-    jmp halt
+; ##### FUNC #####
 
-; MAIN
+; ##### MAIN #####
 _main:
+    mov dword [0xb8000], 0x074b074f
     call kernel_main
-    ;jmp halt

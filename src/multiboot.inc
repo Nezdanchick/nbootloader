@@ -29,5 +29,4 @@ multiboot_entry:
         push  ebx                     ;1st argument multiboot info pointer
         call  _main                   ;Entry point
         add   esp, 8                  ;Cleanup 8 bytes pushed as arguments
-
-        jmp multiboot_entry
+        hlt
