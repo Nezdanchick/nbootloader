@@ -14,11 +14,13 @@ if [ $FILE == ]  ; then
 fi
 
 mkdir -p $ROOT/bin/
+
 nasm $SRC/$FILE.asm -o $BIN/entry.o -f $FORMAT -i $ROOT/src
-clang -target x86_64-unknown-none -c -nostdlib -nodefaultlibs -ffreestanding \
+
+clang++ -v -target x86_64-unknown-none -c -nostdlib -nodefaultlibs -ffreestanding \
 -I $ROOT/src \
 -O3 -Wall -Wextra -fno-exceptions \
--o $BIN/main.o \
+--output $BIN/main.o \
 $SRC/kernel.cpp
 
 $LD -T $ROOT/config/linker.ld -m elf_x86_64 -o $BIN/kernel.elf \

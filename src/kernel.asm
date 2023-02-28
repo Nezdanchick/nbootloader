@@ -1,13 +1,11 @@
 bits 32
-extern halt
+extern move
 extern kernel_main
 
-%include "multiboot.inc"
+%include "multiboot2.inc"
 
-section .text
-; ##### FUNC #####
 
-; ##### MAIN #####
-_main:
-    mov dword [0xb8000], 0x074b074f
-    call kernel_main
+;mov dword [0xb8000], 'L'
+;mov dword [0xb8001], 07
+call kernel_main
+hlt

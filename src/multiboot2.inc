@@ -27,6 +27,4 @@ multiboot_entry:
 
         push  eax                     ;2nd argument is magic number
         push  ebx                     ;1st argument multiboot info pointer
-        call  _main                   ;Entry point
         add   esp, 8                  ;Cleanup 8 bytes pushed as arguments
-        hlt
