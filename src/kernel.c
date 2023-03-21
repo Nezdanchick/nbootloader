@@ -2,14 +2,9 @@
 struct multiboot;
 
 int main( __attribute__((unused)) struct multiboot *mboot_ptr ) {
-	term_init();
-	putc('H');
-	//putc('\n');
-	putc('H');
-
-	puts("hello");
+	//term_init();
+	//putc('H');
 	
-	asm("hlt");
-	// finish
+	//finish
 	return 0x0428043a; // :(
 }
