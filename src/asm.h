@@ -1,7 +1,7 @@
 #ifndef ASM_H
 #define ASM_H
 
-#include "common/typedef.h"
+#include <stdint.h>
 static inline
 char inb(uint16_t port)
 {
@@ -12,7 +12,7 @@ char inb(uint16_t port)
     return ret;
 }
 static inline
-void outb(uint16_t port, uint8_t byte)
+void outb(uint16_t port, char byte)
 {
     asm volatile ( "outb %0, %1"
                    :
