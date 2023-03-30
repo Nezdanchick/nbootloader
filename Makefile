@@ -11,7 +11,7 @@ LD=ld
 #x86_64-linux-gnu-ld
 CC=clang
 ASM=nasm
-CC_FLAGS=-nostdlib -nodefaultlibs -ffreestanding -fno-exceptions -I $(INCLUDE) \
+CC_FLAGS=-nostdlib -nodefaultlibs -ffreestanding -fno-exceptions -I$(INCLUDE) \
  -Wall -Wextra -target $(CC_TARGET) -c
 ASM_FLAGS=-f $(ASM_FORMAT) -i $(INCLUDE)
 LD_FLAGS=-m $(LD_FORMAT) --nmagic -T ./config/linker.ld
@@ -31,18 +31,18 @@ all: iso run
 
 build: build-bootloader build-kernel build-lib
 	$(LD) $(LD_FLAGS) -o ./bin/$(BIN) \
-	 ./bin/bootloader.o ./bin/kernel.o ./bin/string.o
+	 $(wildcard ./bin/*.o)
 
 build-bootloader: ./kernel/boot/boot.asm
 	$(MKDIR) ./bin/iso/boot/grub
-	$(ASM) $(ASM_FLAGS) ./kernel/boot/boot.asm -o ./bin/bootloader.o
+	$(ASM) $(ASM_FLAGS) ./kernel/boot/*.asm -o ./bin/bootloader.o
 
 build-kernel: ./kernel/kernel.c
 	$(CC) $(CC_FLAGS) --output ./bin/kernel.o ./kernel/kernel.c
 
-build-lib: ./lib/string.c
-	$(CC) $(CC_FLAGS) --output ./bin/string.o ./lib/string.c
-
+build-lib:
+	$(CC) $(CC_FLAGS) $(wildcard ./lib/*/*.c) $(wildcard ./lib/*.c)
+	mv *.o ./bin/
 iso: build
 	$(MKDIR) $(ISO_PATH)
 	$(CP) ./bin/$(BIN) $(BOOT_PATH)
@@ -67,4 +67,4 @@ run:
 	-no-reboot
 
 clean:
-	$(RM) ./bin *.iso
+	$(RM) ./bin *.iso *.o

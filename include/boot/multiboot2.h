@@ -1,6 +1,6 @@
 #pragma once
 
-#include <lib/stdint.h>
+#include <stdint.h>
 
 struct mod_addr_t {
     u32 start;

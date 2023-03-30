@@ -1,41 +1,26 @@
 #include <lib/string.h>
 
-/*
- * Api - Strings' copy
- * Copies second string to first
- */
 extern char* strcpy(char* s1, const char* s2)
 {
     while (*s2 != '\0')
         *s1++ = *s2++;
     *s1++ = '\0';
-
     return s1;
 }
 
-/*
- * Api - Memory set
- * Fill buffer with value
- */
-extern char* memset(char* buff, const char value, unsigned int size)
+extern char* memset(char *buff, const char value, unsigned int size)
 {
     for (unsigned int i = 0; i < size; ++i) {
         *buff++ = value;
     }
-
     return buff;
 }
 
-/*
- * Api - String extend
- * Extend string with attribute symbol
- */
-extern char* strext(char* buf, const char* str, char sym)
+extern char* strext(char *buff, const char* str, char attribute)
 {
     while (*str != '\0') {
-        *buf++ = *str++;
-        *buf++ = sym;
+        *buff++ = *str++;
+        *buff++ = attribute;
     }
-
-    return buf;
+    return buff;
 }
