@@ -1,6 +1,3 @@
-/bin/
-/img/
-*.a
-*.bin
-*.o
-*.out
+./bin
+./randos
+*.iso

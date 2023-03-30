@@ -1,10 +1,9 @@
 bits 32
-extern move
 extern main
 
-%include "multiboot2.inc"
+%include "boot/multiboot2.inc"
 
-mov   esp, 0x00200000         ;Setup the stack at 2MiB
+mov   esp, 0x02900000         ;Setup the stack at 2MiB
 push  0                       ;Reset EFLAGS
 popfd
 push  eax                     ;2nd argument is magic number

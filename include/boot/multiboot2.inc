@@ -1,4 +1,4 @@
-global _start
+global start
 section .multiboot
 align 4
 
@@ -14,7 +14,7 @@ multiboot_start:
     ; checksum
     dd 0x100000000 - MAGIC - FLAGS - LENGTH
 multiboot_end:
-_start:
+start:
         xor   eax, eax                ;Clear eax and ebx in the event
         xor   ebx, ebx                ;we are not loaded by GRUB.
         jmp   multiboot_entry         ;Jump over the multiboot header

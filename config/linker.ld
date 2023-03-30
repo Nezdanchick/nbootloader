@@ -1,14 +1,11 @@
-ENTRY(_start)
-OUTPUT_FORMAT(elf64-x86-64)
-OUTPUT(kernel.elf)
+ENTRY(start)
 SECTIONS
 {
-	.text: 0x100000 :
-	{
-        /* link the multiboot struct here */
-        . = ALIGN(8);
+    .text 0x100000 :
+    {
+        code = .; _code = .; __code = .;
+        . = ALIGN(4096);
         KEEP(*(.multiboot))
-        /* place all of your code afterwards */
         *(.text)
     }
 
