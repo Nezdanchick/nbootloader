@@ -10,8 +10,7 @@ int main(__attribute__((unused)) struct multiboot_t* multiboot)
 
     memset(buff, ' ', screen_size); //clear screen with ' ' character
     strext(video, buff, 0x07); // cls
-    strext(video, "Hello World! ", 0x07);
-    strext(video, "", 0x07);
+    strext(video, "Hello World!", 0x07);
 
 	asm("hlt");
 	return 0x0428043a; // :(
