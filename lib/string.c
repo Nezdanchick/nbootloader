@@ -24,3 +24,10 @@ extern char* strext(char *buff, const char* str, char attribute)
     }
     return buff;
 }
+extern int strlen(char* str) {
+    int i;
+    for (i = 0; *str != '\0'; *str++) {
+        i++;
+    }
+    return i;
+}

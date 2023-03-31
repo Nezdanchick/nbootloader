@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include <lib/asm.h>
 
 extern void cursor_enable(u8 cursor_start, u8 cursor_end);
 extern void cursor_disable();

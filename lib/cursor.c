@@ -1,4 +1,4 @@
-#include <lib/asm.h>
+#include <lib/cursor.h>
 
 extern void cursor_enable(u8 cursor_start, u8 cursor_end)
 {
