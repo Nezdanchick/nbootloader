@@ -9,9 +9,3 @@ typedef signed char         i8;
 typedef signed short        i16;
 typedef signed int          i32;
 typedef signed long int     i64;
-
-typedef int bool;
-
-#define true 1
-#define false 0
-#define null 0
