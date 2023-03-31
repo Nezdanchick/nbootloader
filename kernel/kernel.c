@@ -3,17 +3,18 @@
 
 int main(__attribute__((unused)) struct multiboot_t* multiboot)
 {
-    cursor_enable(0, 16);
-    cursor_move(40 + 12 * 80);
-
     cls();
 
-    set_pos(40, 12);
-    set_color(0x02);
-    puts(":)");
+    set_pos(39, 12);
+    set_color(0x04);
+    putc(3);
 
-    //puthex(0x89ABCDEF);
+    set_pos(0, 1);
+    set_color(0x07);
+    putnum(strlen("16 Hello, World!"));
 
-	asm("hlt");
+    set_pos(0, 2);
+    puthex(0xdeadbeef);
+
 	return 0x0428043a; // :(
 }

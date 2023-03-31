@@ -26,8 +26,6 @@ extern char* strext(char *buff, const char* str, char attribute)
 }
 extern int strlen(char* str) {
     int i;
-    for (i = 0; *str != '\0'; *str++) {
-        i++;
-    }
+    for (i = 0; *str++ != '\0'; i++);
     return i;
 }

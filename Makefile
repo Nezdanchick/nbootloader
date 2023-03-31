@@ -38,7 +38,7 @@ build-bootloader: ./kernel/boot/boot.asm
 	$(ASM) $(ASM_FLAGS) ./kernel/boot/*.asm -o ./bin/bootloader.o
 
 build-kernel: ./kernel/kernel.c
-	$(CC) $(CC_FLAGS) --output ./bin/kernel.o ./kernel/kernel.c
+	$(CC) $(CC_FLAGS) $(wildcard ./kernel/*/*.c) $(wildcard ./kernel/*.c)
 
 build-lib:
 	$(CC) $(CC_FLAGS) $(wildcard ./lib/*/*.c) $(wildcard ./lib/*.c)

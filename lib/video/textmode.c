@@ -24,25 +24,33 @@ extern int get_pos() {
 }
 extern void set_pos(int x, int y) {
     POS_X = x; POS_Y = y;
+    cursor_move(get_pos());
 }
 extern void putc(char c) {
-    strext((VIDEO + get_pos()), &c, COLOR);
-    ++POS_X;
+    strext((VIDEO + get_pos() * 2), &c, COLOR);
+    POS_X++;
+    cursor_move(get_pos());
 }
 extern void puts(char *s) {
-    strext((VIDEO + get_pos()), s, COLOR);
+    strext((VIDEO + get_pos() * 2), s, COLOR);
     int add = strlen(s);
     POS_X += add % 80;
     POS_Y += add / 80;
+    cursor_move(get_pos());
 }
 
 const char _NUMBERS[16] = {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
     'a', 'b', 'c', 'd', 'e', 'f' };
 void _putn(i64 n, u8 r) {
-    for (i64 i = n; i >= 0; i /= r) {
-        putc(_NUMBERS[i % r]);
+    if (n < 0) { // value smaller than 0
+        putc('-');
+        _putn(n * -1, r);
+        return;
     }
+    if (n >= r)
+        _putn(n / r, r);
+    putc(_NUMBERS[n % r]);
 }
 extern void putnum(i64 num) {
     _putn(num, 10);
