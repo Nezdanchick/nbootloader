@@ -12,7 +12,7 @@ LD=ld
 CC=clang
 ASM=nasm
 CC_FLAGS=-nostdlib -nodefaultlibs -ffreestanding -fno-exceptions -I$(INCLUDE) \
- -Wall -Wextra -target $(CC_TARGET) -c
+ -Wall -Wextra -Werror -target $(CC_TARGET) -c
 ASM_FLAGS=-f $(ASM_FORMAT) -i $(INCLUDE)
 LD_FLAGS=-m $(LD_FORMAT) --nmagic -T ./config/linker.ld
 
@@ -20,17 +20,17 @@ CP:=cp
 RM:=rm -rf
 MKDIR:=mkdir -p
 
-BIN=kernel.bin
+KERNEL=core
 CFG=./config/grub.cfg
 ISO_PATH:=./bin/iso
-BOOT_PATH=$(ISO_PATH)/boot
-GRUB_PATH=$(BOOT_PATH)/grub
+KERNEL_PATH=$(ISO_PATH)/system
+GRUB_PATH=$(ISO_PATH)/boot/grub
 INCLUDE=./include
 
 all: iso run
 
-build: build-bootloader build-kernel build-lib
-	$(LD) $(LD_FLAGS) -o ./bin/$(BIN) \
+build: clean build-bootloader build-kernel build-lib
+	$(LD) $(LD_FLAGS) -o ./bin/$(KERNEL) \
 	 $(wildcard ./bin/*.o)
 
 build-bootloader: ./kernel/boot/boot.asm
@@ -44,11 +44,12 @@ build-lib:
 	$(CC) $(CC_FLAGS) $(wildcard ./lib/*/*.c) $(wildcard ./lib/*.c)
 	mv *.o ./bin/
 iso: build
-	$(MKDIR) $(ISO_PATH)
-	$(CP) ./bin/$(BIN) $(BOOT_PATH)
+	$(MKDIR) $(KERNEL_PATH)
+	$(MKDIR) $(GRUB_PATH)
+	$(CP) ./bin/$(KERNEL) $(KERNEL_PATH)
 	$(CP) $(CFG) $(GRUB_PATH)
-	grub-file --is-x86-multiboot2 $(BOOT_PATH)/$(BIN)
-	grub-mkrescue $(ISO_PATH) --output=image.iso \
+	grub-file --is-x86-multiboot2 $(KERNEL_PATH)/$(KERNEL)
+	grub-mkrescue $(ISO_PATH) --output=./bin/image.iso \
 	--product-name="RandOS" \
 	--product-version=0.1.1 \
 	--directory=/usr/lib/grub/i386-pc \
@@ -58,13 +59,15 @@ iso: build
 	--themes="" \
 	--locales=""
 
-run:
+run: # minimum 32M
 	qemu-system-$(ARCH) \
-	-drive file=image.iso,format=raw,index=0,media=disk \
-	-m 128M \
+	-m 32M \
+	-no-reboot \
 	-enable-kvm \
 	-audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 \
-	-no-reboot
+	-drive file=./bin/image.iso,format=raw,index=0,media=disk \
+	-chardev stdio,id=char0,logfile=serial.log,signal=off \
+	-serial chardev:char0
 
 clean:
 	$(RM) ./bin *.iso *.o

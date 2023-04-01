@@ -1,10 +1,10 @@
 ENTRY(start)
 SECTIONS
 {
-    .text 0x100000 :
+    .text 0x1000000 :
     {
         code = .; _code = .; __code = .;
-        . = ALIGN(4096);
+        . = ALIGN(4);
         KEEP(*(.multiboot))
         *(.text)
     }
@@ -14,14 +14,14 @@ SECTIONS
         data = .; _data = .; __data = .;
         *(.data)
         *(.rodata)
-        . = ALIGN(4096);
+        . = ALIGN(4);
     }
 
     .bss :
     {
         bss = .; _bss = .; __bss = .;
         *(.bss)
-        . = ALIGN(4096);
+        . = ALIGN(4);
     }
 
     end = .; _end = .; __end = .;

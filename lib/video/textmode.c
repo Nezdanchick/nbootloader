@@ -1,7 +1,8 @@
+#include <stdio.h>
 #include <video/textmode.h>
 
 const int SCREEN_SIZE = 80 * 25;
-const char *VIDEO = (char*)0xb8000;
+char *VIDEO = (char*)0xb8000;
 char BUFFER[2001];
 int POS_X = 0, POS_Y = 0;
 u8 COLOR = 0x07;
