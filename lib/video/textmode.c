@@ -57,5 +57,6 @@ extern void putnum(i64 num) {
     _putn(num, 10);
 }
 extern void puthex(i64 hex) {
+    puts("0x");
     _putn(hex, 16);
 }
