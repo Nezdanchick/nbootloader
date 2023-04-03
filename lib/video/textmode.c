@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <video/textmode.h>
+#include <lib/string.h>
 
 const int SCREEN_SIZE = 80 * 25;
 char *VIDEO = (char*)0xb8000;
@@ -40,23 +41,20 @@ extern void puts(char *s) {
     cursor_move(get_pos());
 }
 
-const char _NUMBERS[16] = {
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    'a', 'b', 'c', 'd', 'e', 'f' };
-void _putn(i64 n, u8 r) {
+void _putntext(i64 n, u8 r) {
     if (n < 0) { // value smaller than 0
         putc('-');
-        _putn(n * -1, r);
+        _putntext(n * -1, r);
         return;
     }
     if (n >= r)
-        _putn(n / r, r);
-    putc(_NUMBERS[n % r]);
+        _putntext(n / r, r);
+    putc(HEX_NUMBERS[n % r]);
 }
 extern void putnum(i64 num) {
-    _putn(num, 10);
+    _putntext(num, 10);
 }
 extern void puthex(i64 hex) {
     puts("0x");
-    _putn(hex, 16);
+    _putntext(hex, 16);
 }

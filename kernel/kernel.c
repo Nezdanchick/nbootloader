@@ -10,5 +10,5 @@ extern void init() {
     puts(string);
 }
 extern int loop() {
-    return 0xdead;
+    return 0;
 }

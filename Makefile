@@ -1,11 +1,10 @@
 ARCH=i386
 #i386 x86_64
-ASM_FORMAT=elf32
-#elf32 elf64
 LD_FORMAT=elf_$(ARCH)
 #elf_i386 elf_x86_64
 CC_TARGET=$(ARCH)
 #i386-unknown-none x86_64-unknown-none
+ASM_FORMAT=elf
 
 LD=ld
 #x86_64-linux-gnu-ld
@@ -35,7 +34,7 @@ build: clean build-bootloader build-kernel build-lib
 
 build-bootloader: ./kernel/boot/boot.asm
 	$(MKDIR) ./bin/iso/boot/grub
-	$(ASM) $(ASM_FLAGS) ./kernel/boot/*.asm -o ./bin/bootloader.o
+	$(ASM) $(ASM_FLAGS) ./kernel/boot/*.asm -o ./bin/boot.o
 
 build-kernel: ./kernel/kernel.c
 	$(CC) $(CC_FLAGS) $(wildcard ./kernel/*/*.c) $(wildcard ./kernel/*.c)
@@ -64,6 +63,7 @@ run: # minimum 32M
 	-m 32M \
 	-no-reboot \
 	-enable-kvm \
+	-d guest_errors \
 	-audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 \
 	-drive file=./bin/image.iso,format=raw,index=0,media=disk \
 	-chardev stdio,id=char0,logfile=serial.log,signal=off \

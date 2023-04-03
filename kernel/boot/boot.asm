@@ -1,7 +1,5 @@
 bits 32
 extern main
-extern puts
-extern set_pos
 
 %include "boot/multiboot2.inc"
 
