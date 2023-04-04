@@ -8,7 +8,6 @@ push 0              ;Reset EFLAGS
 popfd
 push eax            ;2nd argument is magic number
 push ebx            ;1st argument multiboot info pointer
-add esp, 8          ;Cleanup 8 bytes pushed as arguments
 
 ;open A20 gate
 in al, 0x92
@@ -23,6 +22,7 @@ mov ecx, eax
 mov edx, eax
 
 call main
+add esp, 8          ;Cleanup 8 bytes pushed as arguments
 hlt
 
 ; GDT

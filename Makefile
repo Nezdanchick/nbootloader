@@ -69,5 +69,17 @@ run: # minimum 32M
 	-chardev stdio,id=char0,logfile=serial.log,signal=off \
 	-serial chardev:char0
 
+debug: # minimum 32M
+	qemu-system-$(ARCH) \
+	-m 32M \
+	-no-reboot \
+	-s -S \
+	-d guest_errors \
+	-audiodev pa,id=snd0 -machine pcspk-audiodev=snd0 \
+	-drive file=./bin/image.iso,format=raw,index=0,media=disk \
+	-chardev stdio,id=char0,logfile=serial.log,signal=off \
+	-serial chardev:char0 & \
+	gdb localhost:1234
+
 clean:
 	$(RM) ./bin *.iso *.o
