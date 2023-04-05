@@ -19,12 +19,13 @@ CP:=cp
 RM:=rm -rf
 MKDIR:=mkdir -p
 
+SRC=./src
 KERNEL=core
 CFG=./config/grub.cfg
 ISO_PATH:=./bin/iso
 KERNEL_PATH=$(ISO_PATH)/system
 GRUB_PATH=$(ISO_PATH)/boot/grub
-INCLUDE=./include
+INCLUDE=$(SRC)/include
 
 all: iso run
 
@@ -32,16 +33,18 @@ build: clean build-bootloader build-kernel build-lib
 	$(LD) $(LD_FLAGS) -o ./bin/$(KERNEL) \
 	 $(wildcard ./bin/*.o)
 
-build-bootloader: ./kernel/boot/boot.asm
+build-bootloader: $(SRC)/kernel/boot/boot.asm
 	$(MKDIR) ./bin/iso/boot/grub
-	$(ASM) $(ASM_FLAGS) ./kernel/boot/*.asm -o ./bin/boot.o
+	$(ASM) $(ASM_FLAGS) $(SRC)/kernel/boot/*.asm -o ./bin/boot.o
 
-build-kernel: ./kernel/kernel.c
-	$(CC) $(CC_FLAGS) $(wildcard ./kernel/*/*.c) $(wildcard ./kernel/*.c)
+build-kernel: $(SRC)/kernel/kernel.c
+	$(CC) $(CC_FLAGS) $(wildcard $(SRC)/kernel/*/*.c) $(wildcard $(SRC)/kernel/*.c)
+	mv *.o ./bin/
 
 build-lib:
-	$(CC) $(CC_FLAGS) $(wildcard ./lib/*/*.c) $(wildcard ./lib/*.c)
+	$(CC) $(CC_FLAGS) $(wildcard $(SRC)/lib/*/*.c) $(wildcard $(SRC)/lib/*.c)
 	mv *.o ./bin/
+	
 iso: build
 	$(MKDIR) $(KERNEL_PATH)
 	$(MKDIR) $(GRUB_PATH)
@@ -50,13 +53,12 @@ iso: build
 	grub-file --is-x86-multiboot2 $(KERNEL_PATH)/$(KERNEL)
 	grub-mkrescue $(ISO_PATH) --output=./bin/image.iso \
 	--product-name="RandOS" \
-	--product-version=0.1.1 \
 	--directory=/usr/lib/grub/i386-pc \
 	--install-modules="multiboot2 boot" \
 	--compress=xz \
 	--fonts="" \
-	--themes="" \
-	--locales=""
+	--locales="" \
+	--themes=""
 
 run: # minimum 32M
 	qemu-system-$(ARCH) \
@@ -69,7 +71,7 @@ run: # minimum 32M
 	-chardev stdio,id=char0,logfile=serial.log,signal=off \
 	-serial chardev:char0
 
-debug: # minimum 32M
+debug: iso
 	qemu-system-$(ARCH) \
 	-m 32M \
 	-no-reboot \
@@ -79,7 +81,7 @@ debug: # minimum 32M
 	-drive file=./bin/image.iso,format=raw,index=0,media=disk \
 	-chardev stdio,id=char0,logfile=serial.log,signal=off \
 	-serial chardev:char0 & \
-	gdb localhost:1234
+	gdb -ex "target remote localhost:1234"
 
 clean:
 	$(RM) ./bin *.iso *.o

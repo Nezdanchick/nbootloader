@@ -10,9 +10,6 @@ extern int  loop();
 void main(__attribute__((unused)) struct multiboot_t* multiboot)
 {
     init_serial(COM1);
-    putserial("Serial started\n");
-    
-    cls();
 
     putserial("Initialization...\n");
     init();

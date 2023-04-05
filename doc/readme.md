@@ -1,3 +1,3 @@
 # Documentation
 
-RandOS source documentation
+Rand Operating System documentation
