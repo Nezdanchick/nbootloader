@@ -1,4 +1,7 @@
 cpuid:
+    .NoCPUID:
+    .NoLongMode:
+
     ; Check if CPUID is supported by attempting to flip the ID bit (bit 21) in
     ; the FLAGS register. If we can flip it, CPUID is available.
  
@@ -35,3 +38,4 @@ cpuid:
     cpuid                  ; CPU identification.
     cmp eax, 0x80000001    ; Compare the A-register with 0x80000001.
     jb .NoLongMode         ; It is less, there is no long mode.
+    ret
